@@ -68,4 +68,4 @@ You can configure the application by setting environment variables as needed.
 
 ## License
 
-This project is licensed under the ISC License.
+This project is licensed under the [ISC License](LICENSE).
