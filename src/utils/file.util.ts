@@ -1,67 +1,72 @@
-import type { CLIOptions } from '@/cli/interface';
-import fs from 'fs/promises';
-import path from 'path';
+import path from "path";
+import type { CLIOptions } from "@/cli/interface";
+import fs from "fs/promises";
 
-export async function getFileTypes(directory: string, options: CLIOptions): Promise<Record<string, string[]>> {
+export async function getFileTypes(
+	directory: string,
+	options: CLIOptions,
+): Promise<Record<string, string[]>> {
+	const files = await fs.readdir(directory);
+	const fileTypes: Record<string, string[]> = {};
 
-    const files = await fs.readdir(directory);
-    const fileTypes: Record<string, string[]> = {};
+	for (const file of files) {
+		if (options.ignoreDotfiles && file.startsWith(".")) continue;
 
-    for(const file of files) {
+		const filePath = path.join(directory, file);
+		const fileStat = await fs.stat(filePath);
 
-        if(options.ignoreDotfiles && file.startsWith('.')) continue;
+		if (fileStat.isFile()) {
+			const ext = path.extname(file).toLowerCase();
+			if (!fileTypes[ext]) fileTypes[ext] = [];
+			fileTypes[ext].push(file);
+		}
+	}
 
-        const filePath = path.join(directory, file);
-        const fileStat = await fs.stat(filePath);
-    
-        if(fileStat.isFile()) {
-            const ext = path.extname(file).toLowerCase();
-            if(!fileTypes[ext]) fileTypes[ext] = [];
-            fileTypes[ext].push(file);
-        }
-    }
-
-    return fileTypes;
+	return fileTypes;
 }
 
-export async function getFileNameGroups(directory: string, options: CLIOptions): Promise<Record<string, string[]>> {
-    const files = await fs.readdir(directory);
-    const fileGroups: Record<string, string[]> = {};
+export async function getFileNameGroups(
+	directory: string,
+	options: CLIOptions,
+): Promise<Record<string, string[]>> {
+	const files = await fs.readdir(directory);
+	const fileGroups: Record<string, string[]> = {};
 
-    for(const file of files) {
+	for (const file of files) {
+		if (options.ignoreDotfiles && file.startsWith(".")) continue;
 
-        if(options.ignoreDotfiles && file.startsWith('.')) continue;
+		const filePath = path.join(directory, file);
+		const fileStat = await fs.stat(filePath);
 
-        const filePath = path.join(directory, file);
-        const fileStat = await fs.stat(filePath);
-    
-        if(fileStat.isFile()) {
-            const baseFileName = path.basename(file).split('.')[0];
-            if(!fileGroups[baseFileName]) fileGroups[baseFileName] = [];
-            fileGroups[baseFileName].push(file);
-        }
-    }
+		if (fileStat.isFile()) {
+			const baseFileName = path.basename(file).split(".")[0];
+			if (!fileGroups[baseFileName]) fileGroups[baseFileName] = [];
+			fileGroups[baseFileName].push(file);
+		}
+	}
 
-    return fileGroups;
+	return fileGroups;
 }
 
-export async function getFileDateGroups(directory: string, options: CLIOptions): Promise<Record<string, string[]>> {
-    const files = await fs.readdir(directory);
-    const fileGroups: Record<string, string[]> = {};
+export async function getFileDateGroups(
+	directory: string,
+	options: CLIOptions,
+): Promise<Record<string, string[]>> {
+	const files = await fs.readdir(directory);
+	const fileGroups: Record<string, string[]> = {};
 
-    for(const file of files) {
+	for (const file of files) {
+		if (options.ignoreDotfiles && file.startsWith(".")) continue;
 
-        if(options.ignoreDotfiles && file.startsWith('.')) continue;
+		const filePath = path.join(directory, file);
+		const fileStat = await fs.stat(filePath);
 
-        const filePath = path.join(directory, file);
-        const fileStat = await fs.stat(filePath);
-    
-        if(fileStat.isFile()) {
-            const fileDate = fileStat.birthtime.toDateString();
-            if(!fileGroups[fileDate]) fileGroups[fileDate] = [];
-            fileGroups[fileDate].push(file);
-        }
-    }
+		if (fileStat.isFile()) {
+			const fileDate = fileStat.birthtime.toDateString();
+			if (!fileGroups[fileDate]) fileGroups[fileDate] = [];
+			fileGroups[fileDate].push(file);
+		}
+	}
 
-    return fileGroups;
+	return fileGroups;
 }
