@@ -18,13 +18,18 @@ Managing files in a cluttered directory can be challenging. **Glam-Folders** sim
 
 1. Clone the repository:
     ```sh
-    git clone ...
+    git clone https://github.com/Victor1890/glam-folders
     cd glam-folders
     ```
 
-2. Install dependencies:
+2. Install dependencies using `pnpm`:
     ```sh
-    npm install
+    pnpm install
+    ```
+
+    If you don't have `pnpm` installed, you can install it using `npm`:
+    ```sh
+    npm install -g pnpm
     ```
 
 ## Usage
@@ -35,28 +40,28 @@ You can use the tool with the following commands:
 
 To organize files by their extensions, run:
 ```sh
-npm run glam /path/to/directory --ext
+pnpm run glam /path/to/directory --ext
 ```
 
 ### Group Files by Starting Names
 
 To group files by their starting names, run:
 ```sh
-npm run glam /path/to/directory --name
+pnpm run glam /path/to/directory --name
 ```
 
 ### Organize by Creation Dates
 
 To organize files by their creation dates, run:
 ```sh
-npm run glam /path/to/directory --date
+pnpm run glam /path/to/directory --date
 ```
 
 ### Ignore Dotfiles
 
 To ignore dotfiles when organizing, add the `--ignore-dotfiles` option:
 ```sh
-npm run glam /path/to/directory --ignore-dotfiles
+pnpm run glam /path/to/directory --ignore-dotfiles
 ```
 
 ## Configuration
