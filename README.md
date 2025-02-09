@@ -1,7 +1,5 @@
 # Glam-Folders
 
-**Glam-Folders** is a command-line tool that categorizes files into subfolders based on various criteria.
-
 ## Description
 
 Managing files in a cluttered directory can be challenging. **Glam-Folders** simplifies the process by organizing files into categorized subfolders. With this tool, you can easily group files by extensions, names, or creation dates, ensuring your directories remain clean and structured.
