@@ -1,4 +1,4 @@
 export interface ISummary {
-    folder: string;
-    filesAdded: number;
+	folder: string;
+	filesAdded: number;
 }
